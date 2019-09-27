@@ -64,8 +64,8 @@ class AccountsServiceTest {
         TransferOrder order = TransferOrder.builder().from("123").to("456").amount(new BigDecimal("5")).build();
         service.makeTransfer(order);
 
-        assertThat(service.get("123").get().getAmount()).isEqualTo(new BigDecimal("5"));
-        assertThat(service.get("456").get().getAmount()).isEqualTo(new BigDecimal("5"));
+        assertThat(service.get("123").get().getAmount()).isEqualTo(new BigDecimal("5.00"));
+        assertThat(service.get("456").get().getAmount()).isEqualTo(new BigDecimal("5.00"));
     }
 
 }

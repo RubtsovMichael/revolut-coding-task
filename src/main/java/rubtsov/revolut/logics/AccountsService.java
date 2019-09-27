@@ -26,10 +26,14 @@ public class AccountsService {
         Account sourceAccount = get(order.getFrom()).orElseThrow(() -> new IllegalArgumentException("Account " + order.getFrom() + " not found"));
         Account targetAccount = get(order.getTo()).orElseThrow(() -> new IllegalArgumentException("Account " + order.getTo() + " not found"));
 
-        BigDecimal transferAmount = order.getAmount();
-        verifyFundsAvailability(sourceAccount, transferAmount);
-        targetAccount.payIn(transferAmount);
-        sourceAccount.payOut(transferAmount);
+        BlockingTransferExecutor blockingTransferExecutor = new BlockingTransferExecutor(sourceAccount, targetAccount);
+        blockingTransferExecutor.execute(() -> {
+                    BigDecimal transferAmount = order.getAmount();
+                    verifyFundsAvailability(sourceAccount, transferAmount);
+                    targetAccount.payIn(transferAmount);
+                    sourceAccount.payOut(transferAmount);
+                }
+        );
     }
 
     private void verifyFundsAvailability(Account sourceAccount, BigDecimal transferAmount) {
