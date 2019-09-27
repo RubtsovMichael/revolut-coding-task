@@ -22,6 +22,7 @@ public class AccountsController {
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/{number}")
     public Response getAccount(@PathParam("number") String number) {
         Optional<Account> account = accountsService.get(number);
