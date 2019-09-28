@@ -4,6 +4,7 @@ import rubtsov.revolut.model.Account;
 import rubtsov.revolut.model.TransferOrder;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 public class AccountsService {
@@ -45,4 +46,7 @@ public class AccountsService {
         }
     }
 
+    public List<String> listAccounts() {
+        return repository.listAccounts();
+    }
 }

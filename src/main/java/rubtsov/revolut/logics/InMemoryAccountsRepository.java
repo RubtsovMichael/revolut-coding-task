@@ -2,6 +2,8 @@ package rubtsov.revolut.logics;
 
 import rubtsov.revolut.model.Account;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,6 +20,11 @@ public class InMemoryAccountsRepository implements AccountsRepository {
     @Override
     public boolean create(Account account) {
         return repo.putIfAbsent(account.getNumber(), account) == null;
+    }
+
+    @Override
+    public List<String> listAccounts() {
+        return new ArrayList<>(repo.keySet());
     }
 
 }
