@@ -101,4 +101,13 @@ class AccountsControllerTest {
                 .body(Matchers.equalTo("Account 555 not found"));
     }
 
+    @Test
+    void listsAccounts() {
+        when()
+                .get("/accounts")
+                .then()
+                .statusCode(200)
+                .body("", Matchers.containsInAnyOrder("111", "222", "333", "444"));
+    }
+
 }

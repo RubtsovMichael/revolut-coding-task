@@ -29,4 +29,18 @@ class InMemoryAccountsRepositoryTest {
         assertThat(repository.create(new Account("qqq", BigDecimal.TEN))).isFalse();
     }
 
+    @Test
+    void listsAccounts() {
+        repository.create(new Account("111", BigDecimal.ONE));
+        repository.create(new Account("222", BigDecimal.TEN));
+        repository.create(new Account("333", BigDecimal.TEN));
+
+        assertThat(repository.listAccounts()).containsExactlyInAnyOrder("111", "222", "333");
+    }
+
+    @Test
+    void listsAccountsAsEmpty() {
+        assertThat(repository.listAccounts()).isEmpty();
+    }
+
 }

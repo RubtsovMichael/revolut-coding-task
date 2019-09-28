@@ -68,4 +68,12 @@ class AccountsServiceTest {
         assertThat(service.get("456").get().getAmount()).isEqualTo(new BigDecimal("5.00"));
     }
 
+    @Test
+    void listsAccounts() {
+        repository.create(new Account("123", BigDecimal.TEN));
+        repository.create(new Account("456", BigDecimal.ZERO));
+
+        assertThat(service.listAccounts()).containsExactlyInAnyOrder("123", "456");
+    }
+
 }
