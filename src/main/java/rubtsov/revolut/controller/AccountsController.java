@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import java.util.Optional;
 
-@Path("accounts")
+@Path("/")
 public class AccountsController {
 
     private final AccountsService accountsService;
@@ -23,7 +23,7 @@ public class AccountsController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{number}")
+    @Path("/accounts/{number}")
     public Response getAccount(@PathParam("number") String number) {
         Optional<Account> account = accountsService.get(number);
         if (account.isPresent()) {

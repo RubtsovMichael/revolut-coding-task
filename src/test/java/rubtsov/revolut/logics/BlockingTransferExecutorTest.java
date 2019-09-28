@@ -1,6 +1,5 @@
 package rubtsov.revolut.logics;
 
-import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.Test;
 import rubtsov.revolut.model.Account;
 
@@ -91,7 +90,7 @@ class BlockingTransferExecutorTest {
             executor.take();
         }
 
-        assertThat(account1.getAmount()).isCloseTo(new BigDecimal(5), Percentage.withPercentage(0.0001));
+        assertThat(account1.getAmount()).isEqualTo(new BigDecimal("5.00"));
     }
 
     private String payInOneToAccount1() {

@@ -1,32 +1,38 @@
 package rubtsov.revolut.model;
 
-import lombok.Getter;
-
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import static rubtsov.revolut.model.MoneyUtils.setScale;
+
 public class Account {
 
-    @Getter
     private final String number;
-    @Getter
     private BigDecimal amount;
 
     public Account(String number, BigDecimal amount) {
         this.number = number;
-        this.amount = amount.setScale(2, BigDecimal.ROUND_HALF_UP);
+        this.amount = setScale(amount);
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
     }
 
     private final Lock lock = new ReentrantLock();
 
     public void payIn(BigDecimal transferAmount) {
-        amount = amount.add(transferAmount);
+        amount = amount.add(setScale(transferAmount));
     }
 
     public void payOut(BigDecimal transferAmount) {
-        amount = amount.subtract(transferAmount);
+        amount = amount.subtract(setScale(transferAmount));
     }
 
     public void lock() {

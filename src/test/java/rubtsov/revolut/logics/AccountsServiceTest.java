@@ -53,7 +53,7 @@ class AccountsServiceTest {
         TransferOrder order = TransferOrder.builder().from("123").to("456").amount(new BigDecimal("5")).build();
         assertThatThrownBy(() -> service.makeTransfer(order))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Not enough funds for transfer");
+                .hasMessage("Not enough funds <1.00> for requested transfer of 5.00");
     }
 
     @Test

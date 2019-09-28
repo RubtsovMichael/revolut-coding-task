@@ -23,8 +23,10 @@ public class AccountsService {
             throw new IllegalArgumentException("Source and target account numbers must be different");
         }
 
-        Account sourceAccount = get(order.getFrom()).orElseThrow(() -> new IllegalArgumentException("Account " + order.getFrom() + " not found"));
-        Account targetAccount = get(order.getTo()).orElseThrow(() -> new IllegalArgumentException("Account " + order.getTo() + " not found"));
+        Account sourceAccount = get(order.getFrom()).orElseThrow(() ->
+                new IllegalArgumentException("Account " + order.getFrom() + " not found"));
+        Account targetAccount = get(order.getTo()).orElseThrow(() ->
+                new IllegalArgumentException("Account " + order.getTo() + " not found"));
 
         BlockingTransferExecutor blockingTransferExecutor = new BlockingTransferExecutor(sourceAccount, targetAccount);
         blockingTransferExecutor.execute(() -> {
@@ -38,7 +40,8 @@ public class AccountsService {
 
     private void verifyFundsAvailability(Account sourceAccount, BigDecimal transferAmount) {
         if (transferAmount.compareTo(sourceAccount.getAmount()) > 0) {
-            throw new IllegalArgumentException("Not enough funds for transfer");
+            throw new IllegalArgumentException("Not enough funds <" + sourceAccount.getAmount()
+                    + "> for requested transfer of " + transferAmount);
         }
     }
 
